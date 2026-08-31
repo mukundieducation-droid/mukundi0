@@ -30,7 +30,7 @@ class Sudoku {
     Sudoku(string fileName);
     Sudoku(const Sudoku& other);
     ~Sudoku();
-
+Sudoku();
     void placeDigit(int row, int col, int value);
     bool isSolved();
 
@@ -40,8 +40,9 @@ class Sudoku {
 
     static void resetFunctionCounts();
     static void printFunctionCounts();
-    void solve(bool verbose = false);
-    void solveAndPrint(bool verbose = false);
+    void solve (bool verbose = false);
+ void solveAndPrint(bool verbose = false);
+
 
     string toString() {
         stringstream res;

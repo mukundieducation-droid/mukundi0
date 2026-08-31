@@ -9,6 +9,13 @@
 using namespace std;
 
 
+Cell::Cell(){
+possibilities=NULL;
+numPossibilities=0;
+value=NULL;   
+filledIn=false;
+}
+
 
 Cell::Cell(int value){
 possibilities=NULL;
@@ -30,14 +37,14 @@ for(int i=0;i<numPossibilities;i++){
 possibilities[i]=other.possibilities[i];
 }
 numPossibilities=other.numPossibilities;
-value=NULL;/*problem?*/
+value=NULL;
 filledIn=other.filledIn;
 }
 
 Cell::~Cell(){
 delete [] possibilities;
-delete [] value;
-/*is it neccessary to include NULL?*/
+delete value;
+
 }
 
 bool Cell::isFilledIn(){
@@ -48,31 +55,28 @@ return filledIn;
 
 void Cell::setValue(int value){
 if(filledIn==true){
-throw CellAlreadyFilledIn();/*How do i specify which one*/
-}
-
-catch(string e){/******************/
-    cout<<e;
+throw CellAlreadyFilledIn();
 }
 
 
-if(value !=1 || value !=2 || value !=3 || value !=4 || value !=5 || value !=6 || value !=7 || value !=8 ||value !=9 || value !=10 || value !=11 || value !=12 )
-{throw IllegalCellValue(value);
-}else{Cell(value);}
 
-catch(int e){cout<<e;}
+if(value ==1 || value ==2 || value ==3 || value ==4 || value ==5 || value ==6 || value ==7 || value ==8 ||value ==9 || value ==10 || value ==11 || value ==12 )
+{Cell(value);
+}else{throw IllegalCellValue(value);}/*********/
+
+
 }
 
 int Cell::getValue(){
     if (filledIn != true){
 
-throw CellNotFilledIn();/*dont get it*/
+throw CellNotFilledIn();
 
 
     } else{
     return *value;}
 
-    catch(string e){cout<<e;}
+
 
 }
 
@@ -96,20 +100,21 @@ bool Cell::isPossible(int value){
  
 
 void Cell::removePossibility(int value){
+
 int NewArray[numPossibilities];
 
     for(int i=0;i<numPossibilities;i++){
 
         if(value==possibilities[i]){
 int newIndex=numPossibilities-1;
-for(int j=0;j<newIndex;j++){int x= j;
-if(j==i){ x=j+1;
-  NewArray[j]=possibilities[x];
-possibilities[j]=NewArray[j];}else{ NewArray[j]=possibilities[x] ;    }
+for(int j=0;j<newIndex;j++){int x;
+if(j!=i){ 
+  NewArray[j]=possibilities[j];
+}else{ x=j+1; 
+    NewArray[j]=possibilities[x] ;    }
         }
     }
-}
-}
+    }}
 
 
 

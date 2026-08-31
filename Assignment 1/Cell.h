@@ -15,6 +15,7 @@ using namespace std;
 
 class Cell {
    private:
+
     int* possibilities;
     int numPossibilities;
     int* value;
@@ -22,6 +23,7 @@ class Cell {
 bool helperfunction(int PossibleValue);
 
    public:
+   Cell();
     Cell(int value);
     Cell(int* possibilities, int numPossibilities);
     Cell(const Cell& other);
