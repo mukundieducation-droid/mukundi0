@@ -80,26 +80,67 @@ int Matrix::getSize() const {
 
 // Load matrix from file
 bool Matrix::loadFromFile(const char* filename) {
-Matrix Read_Matrix;
+int row_number;
+int column_number;
     std::ifstream infile;
     infile.open(filename);
-    infile>>Read_Matrix;//friend//
+    if(!infile){
+    std::cout<<"There was an error while opening the file"<<std::endl;
+    return false;
+    }
+    infile>>row_number;
+    infile>>column_number;
+    if(row_number!=column_number){
+        std::cout<<"Error: The matrix is not a square matrix"<<std::endl;
+    }
+
+    data = new int*[row_number];
+    for(int i=0;i<row_number;i++){
+data[i]=new int[column_number];
+    }
+for(int x=0;x<row_number;x++)
+{for(int y=0; y<column_number;y++){
+infile>>data[x][y];
+
+
 }
+}
+infile.close();
+return true;
+    }
+
 
 // Get element at position (row, col)
 int Matrix::getElement(int row, int col) const {
 
+if (data==NULL || row<0 || col<0 || row>size || col>size){
+std::cout<<"Error: Cannot work with the matrix"<<std::endl;
+return 0;
+}
+return data[row][col];
 }
 
 // Set element at position (row, col)
 void Matrix::setElement(int row, int col, int value) {
+    if (data==NULL || row<0 || col<0 || row>size || col>size)
+    {return;}
 
+    data[row][col]=value;
 }
+
+
 
 // Main matrix multiplication function
 void Matrix::matrixCalculator(const Matrix& matrix1, const Matrix& matrix2, int rowIndex) {
+    Matrix result;
+    for(int j=0;j<size;j++){
+        double sum=0;
+        for(int k=0;k<size;k++){
+sum+=matrix1.getElement(rowIndex,k)*matrix2.getElement(k,j);
 
-}
+result.setElement(rowIndex,j,sum);
+
+}}}
 
 // Thread worker function for thread function
 void threadWorker(const Matrix& matrix1, const Matrix& matrix2, 
